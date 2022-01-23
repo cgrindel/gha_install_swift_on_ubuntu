@@ -21,6 +21,9 @@ jobs:
         env:
           INSTALL_DIRECTORY: ${{ steps.install_swift.outputs.install_directory }}
         run: |
+          # DEBUG BEGIN
+          set -x
+          # DEBUG END
           [[ "${INSTALL_DIRECTORY}" == "${HOME}/swift-5.5.2-RELEASE-ubuntu20.04" ]] || \
             (echo >&2 "Unexpected install directory. ${INSTALL_DIRECTORY}" && exit 1)
           # Verify that installed version is found in PATH
