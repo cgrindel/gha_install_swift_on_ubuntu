@@ -10,7 +10,7 @@ jobs:
     env:
       CC: clang
     steps:
-      - use: ./
+      - uses: ./
         id: install_swift
         with:
           swift_release_tag: "swift-5.5.2-release"
