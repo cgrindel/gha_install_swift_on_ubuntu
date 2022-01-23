@@ -8,10 +8,16 @@ inputs:
     type: string
     default: "20.04"
 
+outputs:
+  install_directory:
+    description: The install directory.
+    value: ${{ steps.install_swift.outputs.install_directory }}
+
 runs:
   using: composite
   steps:
     - name: Install Swift Ubuntu
+      id: install_swift
       shell: bash
       env:
         SWIFT_RELEASE_TAG: ${{ inputs.swift_release_tag }}
@@ -20,9 +26,12 @@ runs:
         # Variables
         distro_dirname="ubuntu${UBUNTU_VERSION/[.]/}"
         install_dirname="${SWIFT_RELEASE_TAG}-ubuntu${UBUNTU_VERSION}"
+        install_directory="${HOME}/${install_dirname}"
         archive_filename="${install_dirname}.tar.gz"
         # Download and expand the release archive
         wget "https://download.swift.org/${SWIFT_RELEASE_TAG}/${distro_dirname}/${SWIFT_RELEASE_TAG}/${archive_filename}"
-        tar -xvzf "${archive_filename}" -C ~
+        tar -xvzf "${archive_filename}" -C "${HOME}"
         # Add the usr/bin Swift install directory to the PATH for later actions
-        echo "${HOME}/${install_dirname}/usr/bin" >> "${GITHUB_PATH}"
+        echo "${install_directory}/usr/bin" >> "${GITHUB_PATH}"
+        # Output the install directory
+        echo "::set-output name=install_directory::${install_directory}"
