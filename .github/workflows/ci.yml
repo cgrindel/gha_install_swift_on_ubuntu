@@ -28,6 +28,5 @@ jobs:
             (echo >&2 "Unexpected install directory. ${INSTALL_DIRECTORY}" && exit 1)
           # Verify that installed version is found in PATH
           swift_path="$(which swift)"
-          [[ "${swift_path}" =~ "${INSTALL_DIRECTORY}" ]]
-          # [[ "${swift_path}" =~ "${INSTALL_DIRECTORY}" ]] \
-          #   (echo >&2 "Unexpected swift path. ${swift_path}" && exit 1)
+          [[ "${swift_path}" =~ "${INSTALL_DIRECTORY}" ]] || \
+            (echo >&2 "Unexpected swift path. ${swift_path}" && exit 1)
