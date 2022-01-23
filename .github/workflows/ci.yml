@@ -1,0 +1,29 @@
+name: CI for PR Merge
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ubuntu_build:
+    runs-on: ubuntu-20.04
+    env:
+      CC: clang
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: install_swift
+        with:
+          swift_release_tag: "swift-5.5.2-RELEASE"
+          ubuntu_version: "20.04"
+      - name: Verify Installation
+        shell: bash
+        env:
+          INSTALL_DIRECTORY: ${{ steps.install_swift.outputs.install_directory }}
+        run: |
+          [[ "${INSTALL_DIRECTORY}" == "${HOME}/swift-5.5.2-RELEASE-ubuntu20.04" ]] || \
+            (echo >&2 "Unexpected install directory. ${INSTALL_DIRECTORY}" && exit 1)
+          # Verify that installed version is found in PATH
+          swift_path="$(which swift)"
+          [[ "${swift_path}" =~ "${INSTALL_DIRECTORY}" ]] || \
+            (echo >&2 "Unexpected swift path. ${swift_path}" && exit 1)
