@@ -28,6 +28,8 @@ runs:
         install_dirname="${SWIFT_RELEASE_TAG}-ubuntu${UBUNTU_VERSION}"
         install_directory="${HOME}/${install_dirname}"
         archive_filename="${install_dirname}.tar.gz"
+        lowercase_swift_release_tag="$( echo "${SWIFT_RELEASE_TAG}" | tr '[:upper:]' '[:lower:]')"
+      archive_url="https://download.swift.org/${lowercase_swift_release_tag}/${distro_dirname}/${SWIFT_RELEASE_TAG}/${archive_filename}"
         # Download and expand the release archive
         wget "https://download.swift.org/${SWIFT_RELEASE_TAG}/${distro_dirname}/${SWIFT_RELEASE_TAG}/${archive_filename}"
         tar -xvzf "${archive_filename}" -C "${HOME}"
