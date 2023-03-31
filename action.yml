@@ -36,4 +36,4 @@ runs:
         # Add the usr/bin Swift install directory to the PATH for later actions
         echo "${install_directory}/usr/bin" >> "${GITHUB_PATH}"
         # Output the install directory
-        echo "::set-output name=install_directory::${install_directory}"
+        echo "install_directory=${install_directory}" >> $GITHUB_OUTPUT
