@@ -6,12 +6,15 @@ inputs:
     type: string
   ubuntu_version:
     type: string
-    default: "20.04"
+    default: "22.04"
 
 outputs:
   install_directory:
     description: The install directory.
     value: ${{ steps.install_swift.outputs.install_directory }}
+  ld_library_directory:
+    description: The directory that contains the shared libraries.
+    value: ${{ steps.install_swift.outputs.ld_library_directory }}
 
 runs:
   using: composite
@@ -37,3 +40,5 @@ runs:
         echo "${install_directory}/usr/bin" >> "${GITHUB_PATH}"
         # Output the install directory
         echo "install_directory=${install_directory}" >> $GITHUB_OUTPUT
+        # Output the value that should be added to the LD_LIBRARY_PATH env variable.
+        echo "ld_library_directory=${install_directory}/usr/lib/swift/linux" >> $GITHUB_OUTPUT
