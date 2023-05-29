@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        name: Install Swift
         id: install_swift
         with:
           swift_release_tag: "swift-5.8-RELEASE"
