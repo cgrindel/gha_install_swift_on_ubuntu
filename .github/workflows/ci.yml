@@ -17,18 +17,17 @@ jobs:
         with:
           swift_release_tag: "swift-6.0.2-RELEASE"
           ubuntu_version: "22.04"
-      # DEBUG BEGIN
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-      # DEBUG END
+      # # DEBUG BEGIN
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      # # DEBUG END
       - name: Verify Installation
         shell: bash
         env:
-          INSTALL_DIRECTORY: ${{ steps.install_swift.outputs.install_directory }}
           LD_LIBRARY_DIRECTORY: ${{ steps.install_swift.outputs.ld_library_directory }}
         run: |
           # Verify version is correct
-          swift --version | grep "Apple Swift version 6.0.2"
+          swift --version | grep "Swift version 6.0.2"
           # Verify the LD_LIBRARY_DIRECTORY output is correct.
           [[ "${LD_LIBRARY_DIRECTORY}" == "/usr/lib/swift/linux" ]] || \
             (echo >&2 "Unexpected install directory. ${LD_LIBRARY_DIRECTORY}" && exit 1)
