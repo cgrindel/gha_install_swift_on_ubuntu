@@ -36,7 +36,7 @@ runs:
 
         # Download and expand the release archive
         wget "${archive_url}"
-        tar --strip-components 1 -xvzf "${archive_filename}" -C /
+        sudo tar --strip-components 1 -xvzf "${archive_filename}" -C /
         # Update LD_LIBRARY_PATH
         echo "LD_LIBRARY_PATH=${ld_library_directory}:$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
         # Output the install directory
