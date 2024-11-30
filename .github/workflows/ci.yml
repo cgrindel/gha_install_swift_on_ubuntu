@@ -23,7 +23,7 @@ jobs:
           INSTALL_DIRECTORY: ${{ steps.install_swift.outputs.install_directory }}
           LD_LIBRARY_DIRECTORY: ${{ steps.install_swift.outputs.ld_library_directory }}
         run: |
-          [[ "${INSTALL_DIRECTORY}" == "${HOME}/swift-5.8-RELEASE-ubuntu22.04" ]] || \
+          [[ "${INSTALL_DIRECTORY}" == "${HOME}/swift-6.0.2-RELEASE-ubuntu22.04" ]] || \
             (echo >&2 "Unexpected install directory. ${INSTALL_DIRECTORY}" && exit 1)
           [[ "${LD_LIBRARY_DIRECTORY}" == "${INSTALL_DIRECTORY}/usr/lib/swift/linux" ]] || \
             (echo >&2 "Unexpected install directory. ${LD_LIBRARY_DIRECTORY}" && exit 1)
