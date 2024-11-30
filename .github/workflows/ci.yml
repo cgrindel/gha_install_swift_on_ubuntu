@@ -23,14 +23,11 @@ jobs:
           INSTALL_DIRECTORY: ${{ steps.install_swift.outputs.install_directory }}
           LD_LIBRARY_DIRECTORY: ${{ steps.install_swift.outputs.ld_library_directory }}
         run: |
-          [[ "${INSTALL_DIRECTORY}" == "${HOME}/swift-6.0.2-RELEASE-ubuntu22.04" ]] || \
-            (echo >&2 "Unexpected install directory. ${INSTALL_DIRECTORY}" && exit 1)
-          [[ "${LD_LIBRARY_DIRECTORY}" == "${INSTALL_DIRECTORY}/usr/lib/swift/linux" ]] || \
+          # Verify version is correct
+          swift --version | grep "Apple Swift version 6.0.2"
+          # Verify the LD_LIBRARY_DIRECTORY output is correct.
+          [[ "${LD_LIBRARY_DIRECTORY}" == "/usr/lib/swift/linux" ]] || \
             (echo >&2 "Unexpected install directory. ${LD_LIBRARY_DIRECTORY}" && exit 1)
-          # Verify that installed version is found in PATH
-          swift_path="$(which swift)"
-          [[ "${swift_path}" =~ "${INSTALL_DIRECTORY}" ]] || \
-            (echo >&2 "Unexpected swift path. ${swift_path}" && exit 1)
           # Verify that LD_LIBRARY_PATH has been updated
           [[ "${LD_LIBRARY_PATH}" =~ "${LD_LIBRARY_DIRECTORY}" ]] || \
             (echo >&2 "Did not find LD_LIBRARY_DIRECTORY in LD_LIBRARY_PATH. ${LD_LIBRARY_PATH}" && exit 1)
