@@ -25,8 +25,6 @@ runs:
         # Variables
         distro_dirname="ubuntu${UBUNTU_VERSION/[.]/}"
         install_dirname="${SWIFT_RELEASE_TAG}-ubuntu${UBUNTU_VERSION}"
-        # install_directory="${HOME}/${install_dirname}"
-        # ld_library_directory="${install_directory}/usr/lib/swift/linux"
         ld_library_directory="/usr/lib/swift/linux"
         archive_filename="${install_dirname}.tar.gz"
         lowercase_swift_release_tag="$( echo "${SWIFT_RELEASE_TAG}" | tr '[:upper:]' '[:lower:]')"
@@ -39,24 +37,3 @@ runs:
         echo "LD_LIBRARY_PATH=${ld_library_directory}:$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
         # Output the value that should be added to the LD_LIBRARY_PATH env variable.
         echo "ld_library_directory=${ld_library_directory}" >> $GITHUB_OUTPUT
-
-      # run: |
-      #   # Variables
-      #   distro_dirname="ubuntu${UBUNTU_VERSION/[.]/}"
-      #   install_dirname="${SWIFT_RELEASE_TAG}-ubuntu${UBUNTU_VERSION}"
-      #   install_directory="${HOME}/${install_dirname}"
-      #   ld_library_directory="${install_directory}/usr/lib/swift/linux"
-      #   archive_filename="${install_dirname}.tar.gz"
-      #   lowercase_swift_release_tag="$( echo "${SWIFT_RELEASE_TAG}" | tr '[:upper:]' '[:lower:]')"
-      #   archive_url="https://download.swift.org/${lowercase_swift_release_tag}/${distro_dirname}/${SWIFT_RELEASE_TAG}/${archive_filename}"
-      #   # Download and expand the release archive
-      #   wget "${archive_url}"
-      #   tar -xvzf "${archive_filename}" -C "${HOME}"
-      #   # Add the usr/bin Swift install directory to the PATH for later actions
-      #   echo "${install_directory}/usr/bin" >> "${GITHUB_PATH}"
-      #   # Update LD_LIBRARY_PATH
-      #   echo "LD_LIBRARY_PATH=${ld_library_directory}:$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
-      #   # Output the install directory
-      #   echo "install_directory=${install_directory}" >> $GITHUB_OUTPUT
-      #   # Output the value that should be added to the LD_LIBRARY_PATH env variable.
-      #   echo "ld_library_directory=${ld_library_directory}" >> $GITHUB_OUTPUT

@@ -17,10 +17,6 @@ jobs:
         with:
           swift_release_tag: "swift-6.0.2-RELEASE"
           ubuntu_version: "22.04"
-      # # DEBUG BEGIN
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-      # # DEBUG END
       - name: Verify Installation
         shell: bash
         env:
