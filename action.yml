@@ -37,3 +37,10 @@ runs:
         echo "LD_LIBRARY_PATH=${ld_library_directory}:$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
         # Output the value that should be added to the LD_LIBRARY_PATH env variable.
         echo "ld_library_directory=${ld_library_directory}" >> $GITHUB_OUTPUT
+
+        # Remove swift and swiftc from /usr/local/bin
+        uninstall_paths=( /usr/local/bin/swift /usr/local/bin/swiftc )
+        for path in "${uninstall_paths[@]}" ; do
+          echo "Uninstall ${path}"
+          sudo rm -f "${path}"
+        done
